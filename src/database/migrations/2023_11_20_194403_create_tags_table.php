@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bookmarks', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('writer');
-            $table->integer('genre');
-            $table->string('ncode');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookmarks');
+        Schema::dropIfExists('tags');
     }
 };

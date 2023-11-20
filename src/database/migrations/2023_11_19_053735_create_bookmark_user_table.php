@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bookmarks', function (Blueprint $table) {
+        Schema::create('bookmark_user', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('writer');
-            $table->integer('genre');
-            $table->string('ncode');
+            $table->integer('bookmark_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookmarks');
+        Schema::dropIfExists('bookmark_user');
     }
 };
