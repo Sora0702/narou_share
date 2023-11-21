@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('bookmark_user', function (Blueprint $table) {
-            $table->id();
-            $table->integer('bookmark_id');
-            $table->integer('user_id');
-            $table->timestamps();
+        Schema::table('tags', function (Blueprint $table) {
+            $table->foreignId('user_id');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookmark_user');
+        Schema::table('tags', function (Blueprint $table) {
+            $table->dropColumn(('user_id'));
+        });
     }
 };

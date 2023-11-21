@@ -11,7 +11,8 @@ class TagController extends Controller
 {
     public function index()
     {
-        $tags = Tag::select('title', 'id')
+        $current_user_id = auth()->user()->id;
+        $tags = Tag::select('title', 'id')->where('user_id', $current_user_id)
         ->paginate(10);
 
         return view('tags.index', compact('tags'));
@@ -24,8 +25,10 @@ class TagController extends Controller
 
     public function store(StoreTagRequest $request)
     {
+        $current_user = auth()->user();
         Tag::create([
             'title' => $request->title,
+            'user_id' => $current_user->id
         ]);
 
         return to_route('tags.index');
@@ -48,8 +51,10 @@ class TagController extends Controller
 
     public function update(StoreTagRequest $request, $id)
     {
+        $current_user = auth()->user();
         $tag = Tag::find($id);
         $tag->title = $request->title;
+        $tag->user_id = $current_user;
         $tag->save();
 
         return to_route('tags.index');

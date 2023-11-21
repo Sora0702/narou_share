@@ -4,20 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Tag;
 
 class Bookmark extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','writer','ncode', 'genre'];
+    protected $fillable = ['title','writer','ncode', 'genre', 'user_id'];
 
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }
 
-    public function roles()
+    public function user()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(User::class);
     }
 }

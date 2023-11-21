@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('writer');
             $table->integer('genre');
             $table->string('ncode');
+            $table->foreignId('user_id');
             $table->timestamps();
         });
     }

@@ -55,19 +55,23 @@ class BookmarkController extends Controller
 
     public function store(StoreBookmarkRequest $request)
     {
+        $current_user = auth()->user();
         $bookmark = Bookmark::create([
             'title' => $request->title,
             'writer' => $request->writer,
             'ncode' => $request->ncode,
-            'genre' => $request->genre
+            'genre' => $request->genre,
+            'user_id' => $current_user->id,
         ]);
         $bookmark->tags()->sync($request->tags);
+
         return to_route('bookmarks.index');
     }
 
     public function index()
     {
-        $bookmarks = Bookmark::select('title', 'writer', 'ncode', 'genre', 'id')
+        $current_user_id = auth()->user()->id;
+        $bookmarks = Bookmark::select('title', 'writer', 'ncode', 'genre', 'id')->where('user_id', $current_user_id)
         ->paginate(10);
 
         return view('bookmarks.index', compact('bookmarks'));
