@@ -26,6 +26,16 @@
                         ブックマーク一覧
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('tags.create')">
+                        タグ作成
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('tags.index')">
+                        タグ一覧
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

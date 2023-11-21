@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Bookmarks
+            {{ $tag->title }}
         </h2>
     </x-slot>
 
@@ -20,7 +20,7 @@
                                 </div>
                             @endif
                             <div class="flex flex-wrap">
-                                @foreach($bookmarks as $bookmark)
+                                @foreach($tag->bookmarks as $bookmark)
                                     <div class="md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
                                         <h2 class="text-lg sm:text-xl text-white font-medium title-font mb-2">{{ $bookmark['title'] }}</h2>
                                         <p class="leading-relaxed text-base mb-4">作者：{{ $bookmark['writer'] }}</p>

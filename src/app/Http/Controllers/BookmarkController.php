@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use App\Models\Bookmark;
+use App\Models\Tag;
 use App\Http\Requests\StoreBookmarkRequest;
 
 class BookmarkController extends Controller
@@ -47,17 +48,20 @@ class BookmarkController extends Controller
         if (!$data) {
             return to_route('bookmarks.research');
         }
-        return view('bookmarks.confirm', ['data' => $data]);
+        $tags = Tag::pluck('title', 'id')->toArray();
+
+        return view('bookmarks.confirm', ['data' => $data], compact('tags'));
     }
 
     public function store(StoreBookmarkRequest $request)
     {
-        Bookmark::create([
+        $bookmark = Bookmark::create([
             'title' => $request->title,
             'writer' => $request->writer,
             'ncode' => $request->ncode,
             'genre' => $request->genre
         ]);
+        $bookmark->tags()->sync($request->tags);
         return to_route('bookmarks.index');
     }
 
@@ -69,10 +73,27 @@ class BookmarkController extends Controller
         return view('bookmarks.index', compact('bookmarks'));
     }
 
+    public function edit($id)
+    {
+        $bookmark = Bookmark::find($id);
+        $tags = Tag::pluck('title', 'id')->toArray();
+
+        return view('bookmarks.edit', compact('bookmark', 'tags'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $bookmark = Bookmark::find($id);
+
+        $bookmark->tags()->sync($request->tags);
+        return to_route('bookmarks.index');
+    }
+
     public function destroy($id)
     {
         $bookmark = Bookmark::find($id);
         $bookmark->delete();
+        $bookmark->tags()->detach();
 
         return to_route('bookmarks.index')->with('flash_message', 'ブックマークを削除しました。');
     }

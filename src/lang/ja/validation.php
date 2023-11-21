@@ -108,7 +108,7 @@ return [
     'starts_with'          => ':attributeには、:valuesのどれかで始まる値を指定してください。',
     'string'               => ':attributeは文字列を指定してください。',
     'timezone'             => ':attributeには、有効なゾーンを指定してください。',
-    'unique'               => ':attributeの値は既に存在しています。',
+    'unique'               => ':attributeは既に登録されています。',
     'uploaded'             => ':attributeのアップロードに失敗しました。',
     'url'                  => ':attributeに正しい形式を指定してください。',
     'uuid'                 => ':attributeに有効なUUIDを指定してください。',
@@ -124,6 +124,8 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'confirm_password' => '確認用パスワード',
+        'title' => 'タグの名称',
+        'ncode' => '該当の小説'
     ],
 
 ];

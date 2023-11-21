@@ -26,7 +26,7 @@ class StoreBookmarkRequest extends FormRequest
         return [
             'title' => ['required'],
             'writer' => ['required'],
-            'ncode' => ['required'],
+            'ncode' => ['required', 'unique:bookmarks'],
             'genre' => ['required'],
         ];
     }

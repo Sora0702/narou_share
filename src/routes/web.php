@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,6 +40,8 @@ Route::prefix('bookmarks')->middleware(['auth'])
     Route::get('/confirm', 'confirm')->name('confirm');
     Route::post('/store', 'store')->name('store');
     Route::get('/index', 'index')->name('index');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::post('/{id}', 'update')->name('update');
     Route::post('/{id}/destroy', 'destroy')->name('destroy');
 });
 
@@ -49,10 +52,10 @@ Route::prefix('tags')->middleware(['auth'])
     Route::get('/index', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
-    Route::get('/show', 'show')->name('show');
-    Route::get('/edit', 'edit')->name('edit');
-    Route::post('/update', 'update')->name('update');
-    Route::post('/destroy', 'destroy')->name('destroy');
+    Route::get('/{id}/show', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::post('/{id}', 'update')->name('update');
+    Route::post('/{id}/destroy', 'destroy')->name('destroy');
 });
 
 require __DIR__.'/auth.php';

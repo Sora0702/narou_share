@@ -11,6 +11,11 @@ class Bookmark extends Model
 
     protected $fillable = ['title','writer','ncode', 'genre'];
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
     public function roles()
     {
         return $this->belongsToMany(Role::class);
