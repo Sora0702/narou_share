@@ -19,7 +19,8 @@
                                     {{ session('flash_message') }}
                                 </div>
                             @endif
-                            <div class="flex flex-wrap">
+                            @include('shared.search')
+                            <div class="flex flex-wrap mt-10">
                                 @foreach($tags as $tag)
                                     <div class="md:w-full px-8 py-6">
                                         <div class="flex justify-between">

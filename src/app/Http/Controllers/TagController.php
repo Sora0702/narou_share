@@ -4,18 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tag;
-use App\Models\Bookmark;
 use App\Http\Requests\StoreTagRequest;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use App\Services\SearchBookmarkService;
 
 class TagController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $current_user_id = auth()->user()->id;
-        $tags = Tag::select('title', 'id')->where('user_id', $current_user_id)
-        ->paginate(10);
+        $search = $request->search;
 
-        return view('tags.index', compact('tags'));
+        if($search){
+            $tags = Tag::Title($search)->with('user')
+            ->where('user_id', $current_user_id)
+            ->paginate(10);
+
+            return view('tags.index', compact('tags'));
+        }else{
+            $tags = Tag::with('user')->where('user_id', $current_user_id)
+            ->paginate(10);
+
+            return view('tags.index', compact('tags'));
+        }
     }
 
     public function create()
@@ -44,27 +57,73 @@ class TagController extends Controller
 
     public function edit($id)
     {
+        $current_user_id = auth()->user()->id;
         $tag = Tag::find($id);
 
-        return view('tags.show', compact('tag'));
+        if($current_user_id == $tag->user_id){
+            return view('tags.show', compact('tag'));
+        }else{
+            return to_route('tags.index')->with('flash_message', '他ユーザの作成したタグは編集できません。');
+        }
     }
 
     public function update(StoreTagRequest $request, $id)
     {
         $current_user = auth()->user();
         $tag = Tag::find($id);
-        $tag->title = $request->title;
-        $tag->user_id = $current_user;
-        $tag->save();
+        if ($current_user->id == $tag->user_id){
+            $tag->title = $request->title;
+            $tag->user_id = $current_user;
+            $tag->save();
+        }
 
         return to_route('tags.index');
     }
 
     public function destroy($id)
     {
+        $current_user_id = auth()->user()->id;
         $tag = Tag::find($id);
-        $tag->delete();
 
-        return to_route('tags.index');
+        if($current_user_id == $tag->user_id){
+            $tag->delete();
+            return to_route('tags.index');
+        }else{
+            return to_route('tags.index')->with('flash_message', '他ユーザの作成したタグは削除できません。');
+        }
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $keyword = $request->keyword;
+        $genre = $request->genre;
+
+        if($genre){
+            $data = SearchBookmarkService::searchGenre($genre);
+            $tags = $this->paginate($data, 10, null, ['path' => '/tags/search?genre='.$genre]);
+
+            return view('tags.search', compact('tags'));
+        }else if($keyword){
+            $data = SearchBookmarkService::searchKeyword($keyword);
+            $tags = $this->paginate($data, 10, null, ['path' => '/tags/search?keyword='.$keyword]);
+
+            return view('tags.search', compact('tags'));
+        }else if($search){
+            $query = Tag::title($search);
+            $tags = $query->select('title', 'user_id', 'id')
+            ->paginate(10);
+
+            return view('tags.search', compact('tags'));
+        }
+
+        return view('tags.search');
+    }
+
+    private function paginate($items, $perPage, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }

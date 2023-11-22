@@ -23,10 +23,11 @@ class StoreBookmarkRequest extends FormRequest
      */
     public function rules()
     {
+        $current_user_id = auth()->user()->id;
         return [
             'title' => ['required'],
             'writer' => ['required'],
-            'ncode' => ['required', 'unique:bookmarks'],
+            'ncode' => ['required', "unique:bookmarks,ncode,NULL,id,user_id,$current_user_id"],
             'genre' => ['required'],
         ];
     }

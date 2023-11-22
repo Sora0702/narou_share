@@ -40,20 +40,22 @@
                                             </svg>
                                             <span>この小説を読む</span>
                                         </a>
-                                        <div class="flex justify-end">
-                                            <form method="get" action="{{ route('bookmarks.edit', ['id' => $bookmark->id]) }}">
-                                                @csrf
-                                                <div class="p-2 w-full">
-                                                    <button class="flex mx-auto text-white bg-opacity-0 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded">登録タグの変更</button>
-                                                </div>
-                                            </form>
-                                            <form method="post" action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}">
-                                                @csrf
-                                                <div class="p-2 w-full">
-                                                    <button class="flex mx-auto text-white bg-opacity-0  border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded">ブックマークを解除する</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                        @if($tag->user_id == auth()->user()->id)
+                                            <div class="flex justify-end">
+                                                <form method="get" action="{{ route('bookmarks.edit', ['id' => $bookmark->id]) }}">
+                                                    @csrf
+                                                    <div class="p-2 w-full">
+                                                        <button class="flex mx-auto text-white bg-opacity-0 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded">登録タグの変更</button>
+                                                    </div>
+                                                </form>
+                                                <form method="post" action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}">
+                                                    @csrf
+                                                    <div class="p-2 w-full">
+                                                        <button class="flex mx-auto text-white bg-opacity-0  border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded">ブックマークを解除する</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        @endif
                                     </div>
                                 @endforeach
                             </div>

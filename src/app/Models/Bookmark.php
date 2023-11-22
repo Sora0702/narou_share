@@ -22,4 +22,17 @@ class Bookmark extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeKeyword($query, $keyword)
+    {
+        if($keyword !== null){
+            $keyword_split = mb_convert_kana($keyword, 's');
+            $keyword_split2 = preg_split('/[\s]+/', $keyword_split);
+            foreach($keyword_split2 as $value){
+                $query->where('title', 'like', '%'.$value.'%')
+                ->orWhere('writer', 'like', '%'.$value.'%');
+            }
+        }
+        return $query;
+    }
 }

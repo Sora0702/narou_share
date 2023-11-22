@@ -48,7 +48,8 @@ class BookmarkController extends Controller
         if (!$data) {
             return to_route('bookmarks.research');
         }
-        $tags = Tag::pluck('title', 'id')->toArray();
+        $current_user_id = auth()->user()->id;
+        $tags = Tag::with('user')->where('user_id', $current_user_id)->pluck('title', 'id')->toArray();
 
         return view('bookmarks.confirm', ['data' => $data], compact('tags'));
     }
@@ -68,21 +69,41 @@ class BookmarkController extends Controller
         return to_route('bookmarks.index');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $current_user_id = auth()->user()->id;
-        $bookmarks = Bookmark::select('title', 'writer', 'ncode', 'genre', 'id')->where('user_id', $current_user_id)
-        ->paginate(10);
+        $keyword = $request->keyword;
+        $genre = $request->genre;
+
+        if($keyword){
+            $bookmarks = Bookmark::with('user')
+            ->where('user_id', $current_user_id)
+            ->keyword($keyword)
+            ->paginate(10);
+        }elseif($genre){
+            $bookmarks = Bookmark::with('user')
+            ->where('user_id', $current_user_id)
+            ->where('genre', $genre)
+            ->paginate(10);
+        }else{
+            $bookmarks = Bookmark::with('user')->where('user_id', $current_user_id)
+            ->paginate(10);
+        }
 
         return view('bookmarks.index', compact('bookmarks'));
     }
 
     public function edit($id)
     {
+        $current_user_id = auth()->user()->id;
         $bookmark = Bookmark::find($id);
-        $tags = Tag::pluck('title', 'id')->toArray();
+        if($current_user_id == $bookmark->user_id){
+            $tags = Tag::with('user')->where('user_id', $current_user_id)->pluck('title', 'id')->toArray();
 
-        return view('bookmarks.edit', compact('bookmark', 'tags'));
+            return view('bookmarks.edit', compact('bookmark', 'tags'));
+        }else{
+            return to_route('bookmarks.index')->with('flash_message', '他ユーザーの登録したブックマークは編集できません。');
+        }
     }
 
     public function update(Request $request, $id)
@@ -95,10 +116,15 @@ class BookmarkController extends Controller
 
     public function destroy($id)
     {
+        $current_user_id = auth()->user()->id;
         $bookmark = Bookmark::find($id);
-        $bookmark->delete();
-        $bookmark->tags()->detach();
+        if($current_user_id == $bookmark->user_id){
+            $bookmark->delete();
+            $bookmark->tags()->detach();
 
-        return to_route('bookmarks.index')->with('flash_message', 'ブックマークを削除しました。');
+            return to_route('bookmarks.index')->with('flash_message', 'ブックマークを削除しました。');
+        }else{
+            return to_route('bookmarks.index')->with('flash_message', '他ユーザーの登録したブックマークは削除できません。');
+        }
     }
 }

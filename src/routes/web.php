@@ -52,6 +52,7 @@ Route::prefix('tags')->middleware(['auth'])
     Route::get('/index', 'index')->name('index');
     Route::get('/create', 'create')->name('create');
     Route::post('/store', 'store')->name('store');
+    Route::get('/search', 'search')->name('search');
     Route::get('/{id}/show', 'show')->name('show');
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::post('/{id}', 'update')->name('update');

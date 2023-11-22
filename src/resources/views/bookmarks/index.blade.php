@@ -19,7 +19,9 @@
                                     {{ session('flash_message') }}
                                 </div>
                             @endif
-                            <div class="flex flex-wrap">
+                            @include('shared.keyword')
+                            @include('shared.genre')
+                            <div class="flex flex-wrap mt-8">
                                 @foreach($bookmarks as $bookmark)
                                     <div class="md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
                                         <h2 class="text-lg sm:text-xl text-white font-medium title-font mb-2">{{ $bookmark['title'] }}</h2>
