@@ -21,17 +21,19 @@ class TagController extends Controller
         if($search){
             if($updated == 1){
                 $tags = Tag::Title($search)->with('user')
-                ->where('user_id', $current_user_id)->orderBy('created_at', 'asc')
+                ->where('user_id', $current_user_id)->orderBy('updated_at', 'asc')
                 ->paginate(10);
             }else{
                 $tags = Tag::Title($search)->with('user')
-                ->where('user_id', $current_user_id)->orderBy('created_at', 'desc')
+                ->where('user_id', $current_user_id)->orderBy('updated_at', 'desc')
                 ->paginate(10);
             }
 
             return view('tags.index', compact('tags', 'updated'));
         }else{
-            $tags = Tag::with('user')->where('user_id', $current_user_id)
+            $tags = Tag::with('user')
+            ->where('user_id', $current_user_id)
+            ->orderBy('updated_at', 'desc')
             ->paginate(10);
 
             return view('tags.index', compact('tags'));

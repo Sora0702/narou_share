@@ -80,28 +80,30 @@ class BookmarkController extends Controller
             if($updated == 1){
                 $bookmarks = Bookmark::with('user')
                 ->where('user_id', $current_user_id)
-                ->keyword($keyword)->orderBy('created_at', 'asc')
+                ->keyword($keyword)->orderBy('updated_at', 'asc')
                 ->paginate(10);
             }else{
                 $bookmarks = Bookmark::with('user')
                 ->where('user_id', $current_user_id)
-                ->keyword($keyword)->orderBy('created_at', 'desc')
+                ->keyword($keyword)->orderBy('updated_at', 'desc')
                 ->paginate(10);
             }
         }elseif($genre){
             if($updated == 1){
                 $bookmarks = Bookmark::with('user')
                 ->where('user_id', $current_user_id)
-                ->where('genre', $genre)->orderBy('created_at', 'asc')
+                ->where('genre', $genre)->orderBy('updated_at', 'asc')
                 ->paginate(10);
             }else{
                 $bookmarks = Bookmark::with('user')
                 ->where('user_id', $current_user_id)
-                ->where('genre', $genre)->orderBy('created_at', 'desc')
+                ->where('genre', $genre)->orderBy('updated_at', 'desc')
                 ->paginate(10);
             }
         }else{
-            $bookmarks = Bookmark::with('user')->where('user_id', $current_user_id)
+            $bookmarks = Bookmark::with('user')
+            ->where('user_id', $current_user_id)
+            ->orderBy('updated_at', 'desc')
             ->paginate(10);
         }
 
