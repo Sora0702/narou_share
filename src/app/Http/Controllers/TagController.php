@@ -16,13 +16,20 @@ class TagController extends Controller
     {
         $current_user_id = auth()->user()->id;
         $search = $request->search;
+        $updated = $request->updated;
 
         if($search){
-            $tags = Tag::Title($search)->with('user')
-            ->where('user_id', $current_user_id)
-            ->paginate(10);
+            if($updated == 1){
+                $tags = Tag::Title($search)->with('user')
+                ->where('user_id', $current_user_id)->orderBy('created_at', 'asc')
+                ->paginate(10);
+            }else{
+                $tags = Tag::Title($search)->with('user')
+                ->where('user_id', $current_user_id)->orderBy('created_at', 'desc')
+                ->paginate(10);
+            }
 
-            return view('tags.index', compact('tags'));
+            return view('tags.index', compact('tags', 'updated'));
         }else{
             $tags = Tag::with('user')->where('user_id', $current_user_id)
             ->paginate(10);
@@ -98,6 +105,7 @@ class TagController extends Controller
         $search = $request->search;
         $keyword = $request->keyword;
         $genre = $request->genre;
+        $updated = $request->updated;
 
         if($genre){
             $data = SearchBookmarkService::searchGenre($genre);
@@ -111,13 +119,17 @@ class TagController extends Controller
             return view('tags.search', compact('tags'));
         }else if($search){
             $query = Tag::title($search);
-            $tags = $query->select('title', 'user_id', 'id')
-            ->paginate(10);
-
-            return view('tags.search', compact('tags'));
+            if($updated == 1){
+                $tags = $query->select('title', 'user_id', 'id')->orderBy('created_at', 'asc')
+                ->paginate(10);
+            }else{
+                $tags = $query->select('title', 'user_id', 'id')->orderBy('created_at', 'desc')
+                ->paginate(10);
+            }
+            return view('tags.search', compact('tags', 'updated'));
+        }else{
+            return view('tags.search');
         }
-
-        return view('tags.search');
     }
 
     private function paginate($items, $perPage, $page = null, $options = [])

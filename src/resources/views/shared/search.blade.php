@@ -1,5 +1,6 @@
 <form>
     <label for="search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4">タグの名前からタグを検索</label>
+    @include('shared.sort')
     <div class="relative z-10 flex space-x-3 p-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
         <div class="flex-[1_0_0%]">
             <label for="search" class="block text-sm text-gray-700 font-medium dark:text-white"><span class="sr-only">Search bookmark tags</span></label>

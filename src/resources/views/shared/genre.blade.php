@@ -1,5 +1,6 @@
 <form>
     <label for="genre" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4">選択したジャンルを検索</label>
+    @include('shared.sort')
     <div class="relative z-10 flex space-x-3 p-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
         <div class="flex-[1_0_0%]">
             <select name="genre" id="genre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">

@@ -74,23 +74,38 @@ class BookmarkController extends Controller
         $current_user_id = auth()->user()->id;
         $keyword = $request->keyword;
         $genre = $request->genre;
+        $updated = $request->updated;
 
         if($keyword){
-            $bookmarks = Bookmark::with('user')
-            ->where('user_id', $current_user_id)
-            ->keyword($keyword)
-            ->paginate(10);
+            if($updated == 1){
+                $bookmarks = Bookmark::with('user')
+                ->where('user_id', $current_user_id)
+                ->keyword($keyword)->orderBy('created_at', 'asc')
+                ->paginate(10);
+            }else{
+                $bookmarks = Bookmark::with('user')
+                ->where('user_id', $current_user_id)
+                ->keyword($keyword)->orderBy('created_at', 'desc')
+                ->paginate(10);
+            }
         }elseif($genre){
-            $bookmarks = Bookmark::with('user')
-            ->where('user_id', $current_user_id)
-            ->where('genre', $genre)
-            ->paginate(10);
+            if($updated == 1){
+                $bookmarks = Bookmark::with('user')
+                ->where('user_id', $current_user_id)
+                ->where('genre', $genre)->orderBy('created_at', 'asc')
+                ->paginate(10);
+            }else{
+                $bookmarks = Bookmark::with('user')
+                ->where('user_id', $current_user_id)
+                ->where('genre', $genre)->orderBy('created_at', 'desc')
+                ->paginate(10);
+            }
         }else{
             $bookmarks = Bookmark::with('user')->where('user_id', $current_user_id)
             ->paginate(10);
         }
 
-        return view('bookmarks.index', compact('bookmarks'));
+        return view('bookmarks.index', compact('bookmarks', 'updated'));
     }
 
     public function edit($id)

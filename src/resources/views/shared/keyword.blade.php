@@ -1,5 +1,6 @@
 <form>
     <label for="keyword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4">小説タイトルや作者名で検索</label>
+    @include('shared.sort')
     <div class="relative z-10 flex space-x-3 p-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-slate-900 dark:border-gray-700 dark:shadow-gray-900/[.2]">
         <div class="flex-[1_0_0%]">
             <label for="keyword" class="block text-sm text-gray-700 font-medium dark:text-white"><span class="sr-only">Search bookmark tags</span></label>
