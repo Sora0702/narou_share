@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Narou share</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -19,27 +19,84 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="antialiased">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
+                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 dark:text-white underline lg:text-2xl">HOME</a>
                     @endauth
                 </div>
             @endif
+            <!-- Features -->
+            <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+                <h1 class="font-bold text-3xl lg:text-4xl text-gray-800 dark:text-white mb-10">Narou share</h1>
+                <!-- Grid -->
+                <div class="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
+                <div>
+                    <img class="rounded-xl" src="https://images.unsplash.com/photo-1527176930608-09cb256ab504?q=80&w=2074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image Description">
+                </div>
+                <!-- End Col -->
+                <div class="mt-5 sm:mt-10 lg:mt-0">
+                    <div class="space-y-6 sm:space-y-8">
+                    <!-- Title -->
+                    <div class="space-y-2 md:space-y-4">
+                        <h2 class="font-bold text-gray-800 dark:text-gray-200">
+                            小説家になろうに掲載されている作品のブックマークを共有しよう！
+                        </h2>
+                        <p class="text-gray-500">
+                            小説家になろうの作品を検索し、ブックマークを作成しましょう。作成したブックマークはタグをつけて管理ができます。また、他のユーザーが作成したブックマークの閲覧が可能です。他のユーザーのブックマークから新しい小説を見つけることができます。
+                        </p>
+                    </div>
+                    <!-- End Title -->
+                    <!-- List -->
+                    <ul role="list" class="space-y-2 sm:space-y-4">
+                        <li class="flex space-x-3">
+                            <span class="mt-0.5 h-5 w-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-800/30 dark:text-blue-500">
+                                <svg class="flex-shrink-0 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span class="text-sm sm:text-base text-gray-500">
+                                小説家になろうに掲載されている作品のブックマークを作成
+                            </span>
+                        </li>
+                        <li class="flex space-x-3">
+                            <span class="mt-0.5 h-5 w-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-800/30 dark:text-blue-500">
+                                <svg class="flex-shrink-0 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
+                            <span class="text-sm sm:text-base text-gray-500">
+                                作成したブックマークをオリジナルのタグで管理すること可能
+                            </span>
+                        </li>
+                        <li class="flex space-x-3">
+                            <span class="mt-0.5 h-5 w-5 flex justify-center items-center rounded-full bg-blue-50 text-blue-600 dark:bg-blue-800/30 dark:text-blue-500">
+                                <svg class="flex-shrink-0 h-3.5 w-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </span>
 
-            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-
-
+                            <span class="text-sm sm:text-base text-gray-500">
+                                他のユーザーのブックマークを見て新しい作品に出会おう！
+                            </span>
+                        </li>
+                    </ul>
+                    <div class="mt-7 grid gap-3 w-full sm:inline-flex">
+                        <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="{{ route('login') }}">
+                            ユーザー登録
+                            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </a>
+                        <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="{{ route('register') }}">
+                            ログイン
+                            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </a>
+                    </div>
+                    <!-- End List -->
+                    </div>
+                </div>
+                <!-- End Col -->
+                </div>
+                <!-- End Grid -->
             </div>
+            <!-- End Features -->
         </div>
     </body>
 </html>
