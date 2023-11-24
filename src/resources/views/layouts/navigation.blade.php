@@ -41,6 +41,11 @@
                         ブックマークタグを探す
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('tags.likes')">
+                        Goodタグ一覧
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -119,6 +124,11 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('tags.search')">
                 ブックマークタグを探す
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('tags.likes')">
+                Goodタグ一覧
             </x-responsive-nav-link>
         </div>
 

@@ -58,10 +58,12 @@ class TagController extends Controller
 
     public function show($id)
     {
+        $current_user_id = auth()->user()->id;
         $tag = Tag::find($id);
         $bookmarks = $tag->bookmarks()->paginate(10);
+        $isLike = $tag->is_like($current_user_id);
 
-        return view('tags.show', compact('tag', 'bookmarks'));
+        return view('tags.show', compact('tag', 'bookmarks', 'isLike'));
     }
 
     public function edit($id)

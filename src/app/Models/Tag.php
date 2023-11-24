@@ -23,6 +23,16 @@ class Tag extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function user_likes()
+    {
+        return $this->belongsToMany(User::class, 'likes', 'tag_id', 'user_id');
+    }
+
+    public function is_like($current_user_id)
+    {
+        return $this->user_likes()->where('user_id', $current_user_id)->exists();
+    }
+
     public function scopeTitle($query, $search)
     {
         if($search !== null){

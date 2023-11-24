@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\LikeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,6 +58,15 @@ Route::prefix('tags')->middleware(['auth'])
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::post('/{id}', 'update')->name('update');
     Route::post('/{id}/destroy', 'destroy')->name('destroy');
+});
+
+Route::prefix('tags')->middleware(['auth'])
+->controller(LikeController::class)
+->name('tags.')
+->group(function(){
+    Route::post('/{id}/like', 'store')->name('like');
+    Route::post('/{id}/unlike', 'destroy')->name('unlike');
+    Route::get('/likes', 'index')->name('likes');
 });
 
 require __DIR__.'/auth.php';

@@ -58,4 +58,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tag::class);
     }
+
+    public function tag_likes()
+    {
+        return $this->belongsToMany(Tag::class, 'likes', 'user_id', 'tag_id');
+    }
+
+    public function is_tag($tag_id)
+    {
+        return $this->tag_likes()->where('tag_id', $tag_id)->exists();
+    }
 }
