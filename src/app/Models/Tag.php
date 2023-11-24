@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Bookmark;
+use App\Models\Like;
+
 
 class Tag extends Model
 {
@@ -43,5 +45,10 @@ class Tag extends Model
             }
         }
         return $query;
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
     }
 }

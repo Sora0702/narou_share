@@ -10,9 +10,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <section class="text-gray-600 body-font overflow-hidden">
-                        @include('shared.search')
-                        @include('shared.keyword')
-                        @include('shared.genre')
+                        @include('shared.search_likes')
+                        @include('shared.keyword_likes')
+                        @include('shared.genre_likes')
                         @if(isset($tags))
                         <div class="container px-5 py-24 mx-auto">
                             <div class="-my-8 divide-y-2 divide-gray-100">
@@ -24,6 +24,7 @@
                                         <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                                             <span class="font-semibold title-font text-white">{{ $tag->title }}</span>
                                             <span class="mt-4 text-gray-500 text-sm">{{ $tag->user->name }}</span>
+                                            <span class="mt-4 text-gray-500 text-sm">お気に入り数：{{ $tag->likes_count }}</span>
                                             <a class="text-indigo-500 mt-4 flex items-center" href="{{ route('tags.show', ['id' => $tag->id]) }}">
                                                 <span>さらに見る</span>
                                                 <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">

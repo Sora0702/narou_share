@@ -110,6 +110,7 @@ class TagController extends Controller
         $keyword = $request->keyword;
         $genre = $request->genre;
         $updated = $request->updated;
+        $current_user_id = auth()->user()->id;
 
         if($genre){
             $data = SearchBookmarkService::searchGenre($genre);
@@ -124,10 +125,20 @@ class TagController extends Controller
         }else if($search){
             $query = Tag::title($search);
             if($updated == 1){
-                $tags = $query->select('title', 'user_id', 'id')->orderBy('created_at', 'asc')
+                $tags = $query->select('title', 'user_id', 'id')
+                ->where('user_id', '<>', $current_user_id)
+                ->orderBy('created_at', 'asc')
+                ->paginate(10);
+            }elseif($updated == 2){
+                $tags = $query
+                ->withCount('likes')
+                ->where('user_id', '<>', $current_user_id)
+                ->orderBy('likes_count', 'desc')
                 ->paginate(10);
             }else{
-                $tags = $query->select('title', 'user_id', 'id')->orderBy('created_at', 'desc')
+                $tags = $query->select('title', 'user_id', 'id')
+                ->where('user_id', '<>', $current_user_id)
+                ->orderBy('created_at', 'desc')
                 ->paginate(10);
             }
             return view('tags.search', compact('tags', 'updated'));

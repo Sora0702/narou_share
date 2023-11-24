@@ -14,11 +14,7 @@
                             <div class="flex flex-col text-center w-full mb-20">
                               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">- ブックマーク一覧 -</h1>
                             </div>
-                            @if (session('flash_message'))
-                                <div class="mb-3 flash_message text-red-600 text-center">
-                                    {{ session('flash_message') }}
-                                </div>
-                            @endif
+                            @include('shared.message')
                             @include('shared.keyword')
                             @include('shared.genre')
                             <div class="flex flex-wrap mt-8">
@@ -42,20 +38,18 @@
                                             </svg>
                                             <span>この小説を読む</span>
                                         </a>
-                                        <div class="flex justify-end">
-                                            <form method="get" action="{{ route('bookmarks.edit', ['id' => $bookmark->id]) }}">
-                                                @csrf
-                                                <div class="p-2 w-full">
-                                                    <button class="flex mx-auto text-white bg-opacity-0 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded">登録タグの編集</button>
-                                                </div>
-                                            </form>
-                                            <form method="post" action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}">
-                                                @csrf
-                                                <div class="p-2 w-full">
-                                                    <button class="flex mx-auto text-white bg-opacity-0  border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded">ブックマークから削除する</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                        <form method="get" action="{{ route('bookmarks.edit', ['id' => $bookmark->id]) }}">
+                                            @csrf
+                                            <div class="w-full">
+                                                <button class="mb-4 mx-auto text-indigo-500 bg-opacity-0 border-0 focus:outline-none hover:bg-white-600 rounded">登録タグの変更</button>
+                                            </div>
+                                        </form>
+                                        <form method="post" action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}">
+                                            @csrf
+                                            <div class="w-full">
+                                                <button class="mx-auto text-indigo-500 bg-opacity-0  border-0 focus:outline-none hover:bg-white-600 rounded">ブックマークを解除する</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 @endforeach
                             </div>
