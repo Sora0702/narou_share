@@ -4,6 +4,8 @@ services:
     build: ./infra/php
     volumes:
       - ./src:/data
+    ports:
+      - 5173:5173
 
   web:
     image: nginx:1.20-alpine
@@ -20,6 +22,13 @@ services:
       - db-store:/var/lib/mysql
     ports:
       - 33060:3306
+
+  mail:
+    image: axllent/mailpit:v1.8
+    container_name: mailpit
+    ports:
+      - 8025:8025
+      - 1025:1025
 
 volumes:
   db-store:
