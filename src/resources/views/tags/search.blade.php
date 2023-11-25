@@ -10,6 +10,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <section class="text-gray-600 body-font overflow-hidden">
+                        <div class="flex flex-col text-center w-full mb-20">
+                            <h1 class="sm:text-3xl text-2xl font-medium title-font text-white">ブックマーグタグの検索</h1>
+                        </div>
                         @include('shared.search_likes')
                         @include('shared.keyword_likes')
                         @include('shared.genre_likes')
@@ -48,6 +51,8 @@
                             </div>
                         </div>
                         {{$tags->links()}}
+                        @else
+                            @include('shared.recommend')
                         @endif
                     </section>
                 </div>

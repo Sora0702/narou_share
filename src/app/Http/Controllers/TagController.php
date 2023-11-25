@@ -143,7 +143,12 @@ class TagController extends Controller
             }
             return view('tags.search', compact('tags', 'updated'));
         }else{
-            return view('tags.search');
+            $recommend_tags = Tag::withCount('likes')
+            ->where('user_id', '<>', $current_user_id)
+            ->orderBy('likes_count', 'desc')
+            ->limit(4)
+            ->get();
+            return view('tags.search', compact('recommend_tags'));
         }
     }
 
