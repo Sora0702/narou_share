@@ -1,7 +1,7 @@
 <section class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
-        <div class="flex flex-col text-center w-full mb-20">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">人気のブックマーグタグ</h1>
+        <div class="flex flex-col w-full">
+            <p class="font-medium mb-4 text-white">人気のブックマーグタグ</p>
         </div>
         <div class="flex flex-wrap">
             @foreach($recommend_tags as $recommend_tag)
