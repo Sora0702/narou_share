@@ -31,8 +31,8 @@ http://ec2-18-183-107-135.ap-northeast-1.compute.amazonaws.com/
 * Laravel 9.52.16
 * MySQL 8.0(データベース)
 * nginx(webサーバー)
-* tailwindcss(フロントエンド)
-* AWS(EC2)
+* tailwindcss
+* AWS EC2(デプロイ) 
 * なろう小説API
 
 # Functions
@@ -53,6 +53,7 @@ http://ec2-18-183-107-135.ap-northeast-1.compute.amazonaws.com/
 
 * 他ユーザーのお気に入り機能を非動機通信で実装
 * 他のユーザーへのお気に入り作品の公開機能と公開非公開の選択機能
+* ブックマークの人気ランキングページの実装
 
 # License
 
