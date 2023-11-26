@@ -14,7 +14,7 @@
 7. [License](https://github.com/Sora0702/narou_share/blob/main/README.md#license)
 
 # URL
-http://ec2-18-183-107-135.ap-northeast-1.compute.amazonaws.com/
+http://ec2-13-114-90-222.ap-northeast-1.compute.amazonaws.com
 
 # Features
 
