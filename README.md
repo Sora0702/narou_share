@@ -32,7 +32,7 @@ http://ec2-13-114-90-222.ap-northeast-1.compute.amazonaws.com
 * MySQL 8.0(データベース)
 * nginx(webサーバー)
 * tailwindcss
-* AWS EC2(デプロイ) 
+* AWS EC2(デプロイ、Elastic IP) 
 * なろう小説API
 
 # Functions
