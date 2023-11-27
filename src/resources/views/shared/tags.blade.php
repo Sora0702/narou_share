@@ -43,9 +43,6 @@
                         </svg>
                         <span>この小説を読む</span>
                     </a>
-                    @if($tag->likes_count)
-                        <span class="mt-4 text-gray-500 text-sm">お気に入り数：{{ $tag->likes_count }}</span>
-                    @endif
                     @if(auth()->user()->id == $tag->user_id)
                         <form method="get" action="{{ route('bookmarks.edit', ['id' => $bookmark->id]) }}">
                             @csrf
