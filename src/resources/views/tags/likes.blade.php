@@ -16,7 +16,7 @@
                               <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">- Goodタグ一覧 -</h1>
                             </div>
                             @include('shared.message')
-                            @include('shared.search_likes')
+                            @include('shared.search')
                             @include('shared.tags')
                         </div>
                     </section>
