@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tag;
+use App\Models\Bookmark;
 use App\Http\Requests\StoreTagRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Services\SearchBookmarkService;
 
 class TagController extends Controller
 {
@@ -113,12 +113,32 @@ class TagController extends Controller
         $current_user_id = auth()->user()->id;
 
         if($genre){
-            $data = SearchBookmarkService::searchGenre($genre);
+            $bookmarks = Bookmark::with('tags')
+            ->where('genre', $genre)
+            ->where('user_id', '<>', $current_user_id)
+            ->get();
+            $collection = new Collection();
+            foreach($bookmarks as $bookmark){
+                foreach($bookmark->tags as $tag){
+                    $collection->push($tag);
+                }
+            }
+            $data = $collection->unique();
             $tags = $this->paginate($data, 10, null, ['path' => '/tags/search?genre='.$genre]);
 
             return view('tags.search', compact('tags'));
         }else if($keyword){
-            $data = SearchBookmarkService::searchKeyword($keyword);
+            $bookmarks = Bookmark::with('tags')
+            ->keyword($keyword)
+            ->where('user_id', '<>', $current_user_id)
+            ->get();
+            $collection = new Collection();
+            foreach($bookmarks as $bookmark){
+                foreach($bookmark->tags as $tag){
+                    $collection->push($tag);
+                }
+            }
+            $data = $collection->unique();
             $tags = $this->paginate($data, 10, null, ['path' => '/tags/search?keyword='.$keyword]);
 
             return view('tags.search', compact('tags'));

@@ -25,7 +25,9 @@
                                         <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
                                             <span class="font-semibold title-font text-white">{{ $tag->title }}</span>
                                             <span class="mt-4 text-gray-500 text-sm">{{ $tag->user->name }}</span>
-                                            <span class="mt-4 text-gray-500 text-sm">お気に入り数：{{ $tag->likes_count }}</span>
+                                            @if($tag->likes_count)
+                                                <span class="mt-4 text-gray-500 text-sm">お気に入り数：{{ $tag->likes_count }}</span>
+                                            @endif
                                             <a class="text-indigo-500 mt-4 flex items-center" href="{{ route('tags.show', ['id' => $tag->id]) }}">
                                                 <span>さらに見る</span>
                                                 <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
