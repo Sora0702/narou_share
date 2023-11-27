@@ -25,7 +25,7 @@ class MyUtil
         if ($value->genre === 9902) { $genre = '詩〔その他〕'; }
         if ($value->genre === 9903) { $genre = 'エッセイ〔その他〕'; }
         if ($value->genre === 9904) { $genre = 'リプレイ〔その他〕'; }
-        if ($value->genre === 9909) { $genre = 'その他〔その他〕'; }
+        if ($value->genre === 9999) { $genre = 'その他〔その他〕'; }
         if ($value->genre === 9801) { $genre = 'ノンジャンル〔ノンジャンル〕'; }
         return $genre;
     }
