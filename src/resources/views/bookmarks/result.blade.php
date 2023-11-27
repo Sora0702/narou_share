@@ -25,7 +25,6 @@
                                         <div class="md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
                                             <h2 class="text-lg sm:text-xl text-white font-medium title-font mb-2">{{ $result['title'] }}</h2>
                                             <p class="leading-relaxed text-base mb-4">{{ $result['writer'] }}</p>
-                                            <p class="leading-relaxed text-base mb-4">{{ $result['genre'] }}</p>
                                             <form method="post" action="{{ route('bookmarks.send') }}">
                                                 @csrf
                                                 <input type="hidden" name="title" value="{{ $result['title'] }}">
