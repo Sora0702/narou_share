@@ -43,18 +43,20 @@
                         </svg>
                         <span>この小説を読む</span>
                     </a>
-                    <form method="get" action="{{ route('bookmarks.edit', ['id' => $bookmark->id]) }}">
-                        @csrf
-                        <div class="w-full">
-                            <button class="mb-4 mx-auto text-indigo-500 bg-opacity-0 border-0 focus:outline-none hover:bg-white-600 rounded">登録タグの変更</button>
-                        </div>
-                    </form>
-                    <form method="post" action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}">
-                        @csrf
-                        <div class="w-full">
-                            <button class="mx-auto text-indigo-500 bg-opacity-0  border-0 focus:outline-none hover:bg-white-600 rounded">ブックマークを解除する</button>
-                        </div>
-                    </form>
+                    @if(auth()->user()->id == $tag->user_id)
+                        <form method="get" action="{{ route('bookmarks.edit', ['id' => $bookmark->id]) }}">
+                            @csrf
+                            <div class="w-full">
+                                <button class="mb-4 mx-auto text-indigo-500 bg-opacity-0 border-0 focus:outline-none hover:bg-white-600 rounded">登録タグの変更</button>
+                            </div>
+                        </form>
+                        <form method="post" action="{{ route('bookmarks.destroy', ['id' => $bookmark->id]) }}">
+                            @csrf
+                            <div class="w-full">
+                                <button class="mx-auto text-indigo-500 bg-opacity-0  border-0 focus:outline-none hover:bg-white-600 rounded">ブックマークを解除する</button>
+                            </div>
+                        </form>
+                    @endif
                 </div>
                 @php
                     if ($counter >= 1){break;}
